@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{recette.title}} - Gordon{% endblock %}
+
+{% block body %}
+<h2>{{ recette.title }}</h2>
+    <div class="metadata">Ecrit le {{ recette.createdAt | date('d/m/Y') }} à {{ recette.createdAt | date('H:i') }}</div>
+    <div  class="content">
+        {{ recette.ingredients | raw }}
+        <hr>
+        {{ recette.content | raw }}
+        <hr>
+    {% if app.user %}
+    {{ form_start(commentForm) }}
+        {{ form_row(commentForm.author, {'attr':{'placeholder':'votre nom'}} )}}
+        {{ form_row(commentForm.content, {'attr':{'placeholder':'Commentaire'}}) }}
+        <button type='submit' class="btn btn-primary">commenter</button>
+    {{ form_end(commentForm) }}
+        
+    {% else %}
+        <h4>Connectez-vous pour commenter</h4>
+        <a href="{{path('security_login')}}" class="btn btn-success">Connexion</a>
+    {% endif %}
+        <h1>{{ recette.comments | length }} commentaires:</h1>
+    {% for comment in recette.comments %}
+
+        <section id="commentaires">
+            <div class="comments">
+                <div class="col-3">
+                    <strong>{{comment.author}}</strong> (<small>{{ comment.createdAt | date('d/m/Y') }}</small>)
+                </div>
+                <div class="col">
+                    <p>{{comment.content | raw}}</p>
+                </div>
+            </div>
+            <hr>
+    {% endfor %}
+
+        </section>
+
+
+{% endblock %}

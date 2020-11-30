@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Bienvenue - Gordon{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://bootswatch.com/4/cyborg/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <script type="text/javascript"></script>
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
+</script>
+
+
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{path('home')}}">Gordon</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('recettes')}}">Toutes les recettes
+        </a>
+      </li>
+      {% if app.user %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('recette_create')}}">Créer une recette</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ path('security_logout') }}" class="nav-link">Déconnexion</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a href="{{ path('security_login') }}" class="nav-link">Connexion</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ path('security_registration') }}" class="nav-link">Créer votre compte</a>
+      </li>
+        
+      {% endif %}
+</nav>
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+        
+        {% block javascripts %}
+        {% endblock %}
+    </body>
+</html>

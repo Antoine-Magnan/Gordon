@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Gordon{% endblock %}
+
+{% block body %}
+<section class="articles">
+    {% for recette in recettes|slice(0,5) %}
+        <article>
+            <a href="{{ path('recette_complete',{'id': recette.id}) }}">
+            <div class="metadata">Ecrit le {{ recette.createdAt | date('d/m/Y') }}</div>
+            <h2>{{ recette.title }}</h2>
+            <div  class="content">
+                {{ recette.ingredients | raw }} <br>
+                {{ recette.content | raw }}
+                <br></a>
+                <a href="{{ path('recette_complete',{'id': recette.id}) }}" class="btn btn-primary">Lire la suite</a>
+            </div>
+        </article><hr>
+    {% endfor %}
+</section>    
+{% endblock %}
